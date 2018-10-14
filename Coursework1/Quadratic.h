@@ -1,24 +1,48 @@
 #pragma once
+
 #include <iostream>
 
 struct Coefficient {
-	int a;
-	int b;
-	int c;
+    int a;
+    int b;
+    int c;
+
 };
-class Quadratic
-{
+
+enum PowerX {
+    powerOfTwo, powerOfOne, powerOfZero
+};
+
+class Quadratic {
 public:
-	Quadratic();
-	~Quadratic();
-	Coefficient cofficients;
+    explicit Quadratic(Coefficient coefficient);
 
-	int getCoefficient(int power);
-	int computeValue(int x);
-	Quadratic operator+(const Quadratic& rhs);
-	Quadratic operator-(const Quadratic& rhs);
-	
+    ~Quadratic();
+
+    int getCoefficient(PowerX power) const;
+
+    float computeValue(float x);
+
+    Quadratic operator+(Quadratic rhs);
+
+    Quadratic operator-(Quadratic rhs);
+
+    //TODO: work out right signature
+    Quadratic operator+=(Quadratic rhs);
+
+    Quadratic operator-=(Quadratic rhs);
+
+    bool operator==(Quadratic rhs);
+
+    bool operator!=(Quadratic rhs);
+
+
+private:
+    Coefficient cofficients;
 };
 
-std::ostream operator<<(std::ostream& outsream, const Quadratic& quad);
-std::ostream operator>>(std::ostream& outsream, const Quadratic& quad);
+std::ostream &operator<<(std::ostream &outstream, const Quadratic &quad);
+
+std::istream &operator>>(std::istream &instream, Quadratic &quad);
+
+
