@@ -22,8 +22,8 @@ int Quadratic::getCoefficient(PowerX power) const {
 
 }
 
-float Quadratic::computeValue(float x) {
-    return cofficients.a * (pow(x, 2)) + cofficients.b * (pow(x, 1)) + cofficients.c;
+float Quadratic::computeValue(float x) const {
+    return cofficients.a * (pow(x, PWR_TWO)) + cofficients.b * (pow(x, PWR_ONE)) + cofficients.c;
 }
 
 Quadratic Quadratic::operator+(Quadratic rhs) {
@@ -44,6 +44,13 @@ Quadratic Quadratic::operator-(Quadratic rhs) {
     return Quadratic(Coefficient{a, b, c});
 }
 
+Quadratic& Quadratic::operator=(const Quadratic &rhs) {
+    cofficients.a = rhs.getCoefficient(powerOfTwo);
+    cofficients.b = rhs.getCoefficient(powerOfOne);
+    cofficients.c = rhs.getCoefficient(powerOfZero);
+    return *this;
+}
+
 
 std::ostream &operator<<(std::ostream &outstream, const Quadratic &quad) {
     outstream << quad.getCoefficient(PowerX::powerOfTwo) << "x^2 + "
@@ -56,7 +63,7 @@ std::ostream &operator<<(std::ostream &outstream, const Quadratic &quad) {
 std::istream &operator>>(std::istream &instream, Quadratic &quad) {
     int a, b, c;
     instream >> a >> b >> c;
-    quad = Quadratic(Coefficient{a,b,c});
+    quad = Quadratic(Coefficient{a, b, c});
     return instream;
 }
 

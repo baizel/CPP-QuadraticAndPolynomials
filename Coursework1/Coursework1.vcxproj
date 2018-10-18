@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Polynomial.cpp" />
     <ClCompile Include="Quadratic.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Polynomial.h" />
     <ClInclude Include="Quadratic.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

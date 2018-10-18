@@ -21,11 +21,14 @@ public:
 
     int getCoefficient(PowerX power) const;
 
-    float computeValue(float x);
+    float computeValue(float x) const;
 
     Quadratic operator+(Quadratic rhs);
 
     Quadratic operator-(Quadratic rhs);
+
+
+    Quadratic &operator=(const Quadratic &rhs);
 
     //TODO: work out right signature
     Quadratic operator+=(Quadratic rhs);
@@ -39,6 +42,9 @@ public:
 
 private:
     Coefficient cofficients;
+    const int PWR_TWO = 2;
+    const int PWR_ONE = 1;
+    const int PWR_ZERO = 0;
 };
 
 std::ostream &operator<<(std::ostream &outstream, const Quadratic &quad);
