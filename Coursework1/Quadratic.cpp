@@ -4,6 +4,9 @@
 Quadratic::Quadratic(Coefficient coefficient) {
     cofficients = coefficient;
 }
+Quadratic::Quadratic() {
+    cofficients = Coefficient{0,0,0};
+}
 
 Quadratic::~Quadratic() = default;
 
@@ -44,7 +47,7 @@ Quadratic Quadratic::operator-(Quadratic rhs) {
     return Quadratic(Coefficient{a, b, c});
 }
 
-Quadratic& Quadratic::operator=(const Quadratic &rhs) {
+Quadratic &Quadratic::operator=(const Quadratic &rhs) {
     cofficients.a = rhs.getCoefficient(powerOfTwo);
     cofficients.b = rhs.getCoefficient(powerOfOne);
     cofficients.c = rhs.getCoefficient(powerOfZero);
@@ -53,9 +56,11 @@ Quadratic& Quadratic::operator=(const Quadratic &rhs) {
 
 
 std::ostream &operator<<(std::ostream &outstream, const Quadratic &quad) {
-    outstream << quad.getCoefficient(PowerX::powerOfTwo) << "x^2 + "
-              << quad.getCoefficient(PowerX::powerOfOne) << "x + "
-              << quad.getCoefficient(PowerX::powerOfZero) << std::endl;
+    outstream << quad.getCoefficient(PowerX::powerOfTwo) << "x^2"
+              << ((quad.getCoefficient(powerOfOne) > 0) ? " + " : " ")
+              << quad.getCoefficient(PowerX::powerOfOne) << "x"
+              << ((quad.getCoefficient(powerOfZero) > 0) ? " + " : " ")
+              << quad.getCoefficient(PowerX::powerOfZero);
 
     return outstream;
 }

@@ -16,6 +16,7 @@ enum PowerX {
 class Quadratic {
 public:
     explicit Quadratic(Coefficient coefficient);
+    explicit Quadratic();
 
     ~Quadratic();
 
