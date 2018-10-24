@@ -7,6 +7,14 @@ Polynomial::Polynomial() {
     polynomial = new Expression[1];
 }
 
+Polynomial::Polynomial(const Polynomial &other) {
+    this->arraySize = other.arraySize;
+    polynomial = new Expression[other.getArraySize()];
+    for (int i = 0; i < other.getArraySize(); i++) {
+         polynomial[i] = Expression{other.polynomial[i].coefficent, other.polynomial[i].powerOfX};
+    }
+}
+
 Polynomial::~Polynomial() {
     delete[] polynomial;
 }
@@ -73,26 +81,25 @@ int Polynomial::getArraySize() const {
     return arraySize;
 }
 
-Polynomial Polynomial::operator+(Polynomial rhs) {
-    Polynomial result;
+Polynomial *Polynomial::operator+(const Polynomial &rhs) {
+    Polynomial *ret = new Polynomial(rhs);
     for (int i = 0; i < arraySize; i++) {
         bool added = false;
-        for (int j = 0; j < rhs.getArraySize(); j++) {
-            if (polynomial[i].powerOfX == rhs.polynomial[j].powerOfX){
-                int cof = polynomial[i].coefficent + polynomial[j].coefficent;
-                result.addExpression(Expression{cof,polynomial[i].powerOfX});
+        for (int j = 0; j < ret->getArraySize(); j++) {
+            if (polynomial[i].powerOfX == ret->polynomial[j].powerOfX) {
+                int cof = polynomial[i].coefficent + ret->polynomial[j].coefficent;
+                ret->polynomial[i].coefficent = cof;
                 added = true;
-                std::cout << "Added index = " << j << std::endl;
             }
         }
-        if (!added){
-            result.addExpression(Expression{polynomial[i].coefficent,polynomial[i].powerOfX});
+        if (!added) {
+            ret->addExpression(Expression{polynomial[i].coefficent, polynomial[i].powerOfX});
         }
     }
-    return result;
+    return ret;
 }
 
-Polynomial *Polynomial::operator-(Polynomial rhs) {
-    return nullptr;
-}
+//Polynomial *Polynomial::operator-(Polynomial *rhs) {
+//    return nullptr;
+//}
 

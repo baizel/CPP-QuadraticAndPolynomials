@@ -22,7 +22,7 @@ public:
     /**
      * Copy constructor
      */
-    explicit Polynomial(Polynomial &other);
+    Polynomial(const Polynomial &other);
 
     /**
      * Destructor that will delete the polynomial array of the heap
@@ -39,7 +39,7 @@ public:
 
     float computeValue(float x) const;
 
-    Polynomial operator+(Polynomial rhs);
+    Polynomial *operator+(const Polynomial &rhs);
 
     Polynomial operator-(Polynomial rhs);
 
