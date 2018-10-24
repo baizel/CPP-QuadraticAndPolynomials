@@ -1,5 +1,8 @@
 #pragma once
-struct Expression {
+
+#include <ostream>
+
+struct Term {
     int coefficent;
     int powerOfX;
 
@@ -28,26 +31,53 @@ public:
      * Destructor that will delete the polynomial array of the heap
      */
     ~Polynomial();
+
     /**
-     * Method to add an expression to the polynomial.
-     * I.e adding 3x^2 to polynomial by doing addExpression(Expression(3,2)
-     * @param expr
+     * Method to add a Term to the polynomial.
+     * I.e adding 3x^2 to polynomial by doing addTerm(Term(3,2)
+     * @param term
      */
-    void addExpression(Expression expr);
+    void addTerm(Term term);
 
     int getCoefficient(int degreeOfPower) const;
 
+    int getArraySize() const;
+
     float computeValue(float x) const;
+
+    //********** Operator overloads ********//
 
     Polynomial *operator+(const Polynomial &rhs);
 
-    Polynomial operator-(Polynomial rhs);
+    Polynomial *operator-(const Polynomial &rhs);
 
-    int getArraySize() const;
+    Polynomial *operator*(const Polynomial &rhs);
+
+
+    Polynomial &operator=(const Polynomial &rhs);
+
+    Polynomial *operator+=(const Polynomial &rhs);
+
+    Polynomial *operator-=(const Polynomial &rhs);
+
+    Polynomial *operator*=(const Polynomial &rhs);
+
+    bool operator==(const Polynomial &rhs);
+
+    bool operator!=(const Polynomial &rhs);
+
+    friend std::istream &operator>>(std::istream &inStream, Polynomial &polynomial);
+
+    //TODO: Write this
+    friend std::ostream &operator<<(std::ostream &outStream, const Polynomial &polynomial);
 
 private:
     int arraySize = 0;
-    Expression *polynomial;
+    Term *polynomial;
+
 };
+
+
+
 
 

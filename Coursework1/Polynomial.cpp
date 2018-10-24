@@ -4,14 +4,14 @@
 #include <iterator>
 
 Polynomial::Polynomial() {
-    polynomial = new Expression[1];
+    polynomial = new Term[1];
 }
 
 Polynomial::Polynomial(const Polynomial &other) {
     this->arraySize = other.arraySize;
-    polynomial = new Expression[other.getArraySize()];
+    polynomial = new Term[other.getArraySize()];
     for (int i = 0; i < other.getArraySize(); i++) {
-         polynomial[i] = Expression{other.polynomial[i].coefficent, other.polynomial[i].powerOfX};
+        polynomial[i] = Term{other.polynomial[i].coefficent, other.polynomial[i].powerOfX};
     }
 }
 
@@ -19,45 +19,30 @@ Polynomial::~Polynomial() {
     delete[] polynomial;
 }
 
-void Polynomial::addExpression(Expression expr) {
-    if (expr.coefficent != 0) {
+void Polynomial::addTerm(Term term) {
+    if (term.coefficent != 0) {
+        if (getCoefficient(term.powerOfX) != 0) {
+            for (int i = 0; i < arraySize; i++) {
+                if (polynomial[i].powerOfX == term.powerOfX) {
+                    polynomial[i].coefficent += term.coefficent;
+                    // Break out the function
+                    return;
+                }
+            }
+        }
         if (arraySize == 0) {
-            polynomial[0] = expr;
+            polynomial[0] = term;
             arraySize = 1;
         } else {
             arraySize++;
-            auto *temp = new Expression[arraySize];
+            auto *temp = new Term[arraySize];
             std::copy(polynomial, polynomial + (arraySize),
-                      stdext::checked_array_iterator<Expression *>(temp, arraySize));
+                      stdext::checked_array_iterator<Term *>(temp, arraySize));
             delete[]polynomial;
             polynomial = temp;
-            polynomial[arraySize - 1] = expr;
+            polynomial[arraySize - 1] = term;
         }
     }
-}
-
-void Polynomial::print() {
-    //TODO: Change this to >> operator
-    for (auto i = 0; i < arraySize; i++) {
-        if (polynomial[i].coefficent != 0) {
-            std::cout << polynomial[i].coefficent;
-        }
-        if (polynomial[i].powerOfX != 0) {
-            std::cout << "x";
-            if (polynomial[i].powerOfX != 1) {
-                std::cout << "^" << polynomial[i].powerOfX;
-            }
-        }
-
-        if (i != arraySize - 1) {
-            if (polynomial[i + 1].coefficent >= 0) {
-                std::cout << " + ";
-            } else {
-                std::cout << " ";
-            }
-        }
-    }
-    std::cout << std::endl;
 }
 
 int Polynomial::getCoefficient(int degreeOfPower) const {
@@ -88,18 +73,82 @@ Polynomial *Polynomial::operator+(const Polynomial &rhs) {
         for (int j = 0; j < ret->getArraySize(); j++) {
             if (polynomial[i].powerOfX == ret->polynomial[j].powerOfX) {
                 int cof = polynomial[i].coefficent + ret->polynomial[j].coefficent;
-                ret->polynomial[i].coefficent = cof;
+                ret->polynomial[j].coefficent = cof;
                 added = true;
             }
         }
         if (!added) {
-            ret->addExpression(Expression{polynomial[i].coefficent, polynomial[i].powerOfX});
+            ret->addTerm(Term{polynomial[i].coefficent, polynomial[i].powerOfX});
         }
     }
     return ret;
 }
 
-//Polynomial *Polynomial::operator-(Polynomial *rhs) {
-//    return nullptr;
-//}
+Polynomial *Polynomial::operator-(const Polynomial &rhs) {
+    Polynomial *ret = new Polynomial(rhs);
+    for (int i = 0; i < arraySize; i++) {
+        bool added = false;
+        for (int j = 0; j < ret->getArraySize(); j++) {
+            if (polynomial[i].powerOfX == ret->polynomial[j].powerOfX) {
+                int cof = polynomial[i].coefficent - ret->polynomial[j].coefficent;
+                ret->polynomial[j].coefficent = cof;
+                added = true;
+            }
+        }
+        if (!added) {
+            ret->addTerm(Term{polynomial[i].coefficent, polynomial[i].powerOfX});
+        }
+    }
+    return ret;
+}
+
+Polynomial *Polynomial::operator*(const Polynomial &rhs) {
+    Polynomial *ret = new Polynomial(rhs);
+    for (int i = 0; i < arraySize; i++) {
+        for (int j = 0; j < ret->getArraySize(); j++) {
+            int cof = polynomial[i].coefficent * ret->polynomial[j].coefficent;
+            int ind = polynomial[i].powerOfX + ret->polynomial[j].powerOfX;
+            ret->polynomial[j] = Term({cof,ind});
+        }
+    }
+    return ret;
+}
+
+Polynomial &Polynomial::operator=(const Polynomial &rhs) {
+    std::cout << "this was called";
+    delete[] polynomial;
+    polynomial = new Term[rhs.arraySize];
+    for (int i =0; i< rhs.arraySize; i++){
+        polynomial[i] = Term({rhs.polynomial[i].coefficent,rhs.polynomial[i].powerOfX});
+    }
+    return *this;
+}
+
+std::ostream &operator<<(std::ostream &outStream, const Polynomial &polynomial) {
+
+    for (auto i = 0; i < polynomial.getArraySize(); i++) {
+        std::cout << polynomial.polynomial[i].coefficent;
+        if (polynomial.polynomial[i].powerOfX != 0) {
+            std::cout << "x";
+            if (polynomial.polynomial[i].powerOfX != 1) {
+                std::cout << "^" << polynomial.polynomial[i].powerOfX;
+            }
+        }
+
+        if (i != polynomial.getArraySize() - 1) {
+            if (polynomial.polynomial[i + 1].coefficent >= 0) {
+                std::cout << " + ";
+            } else {
+                std::cout << " ";
+            }
+        }
+    }
+    return outStream;
+}
+
+std::istream &operator>>(std::istream &inStream, Polynomial &polynomial) {
+    return inStream;
+}
+
+
 

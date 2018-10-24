@@ -4,8 +4,9 @@
 Quadratic::Quadratic(Coefficient coefficient) {
     cofficients = coefficient;
 }
+
 Quadratic::Quadratic() {
-    cofficients = Coefficient{0,0,0};
+    cofficients = Coefficient{0, 0, 0};
 }
 
 Quadratic::~Quadratic() = default;
@@ -54,22 +55,53 @@ Quadratic &Quadratic::operator=(const Quadratic &rhs) {
     return *this;
 }
 
+Quadratic Quadratic::operator+=(const Quadratic &rhs) {
+    this->cofficients.a += rhs.cofficients.a;
+    this->cofficients.b += rhs.cofficients.b;
+    this->cofficients.c += rhs.cofficients.c;
+    return *this;
+}
 
-std::ostream &operator<<(std::ostream &outstream, const Quadratic &quad) {
-    outstream << quad.getCoefficient(PowerX::powerOfTwo) << "x^2"
+Quadratic Quadratic::operator-=(const Quadratic &rhs) {
+    this->cofficients.a -= rhs.cofficients.a;
+    this->cofficients.b -= rhs.cofficients.b;
+    this->cofficients.c -= rhs.cofficients.c;
+    return *this;
+}
+
+bool Quadratic::operator==(const Quadratic &rhs) {
+    return this->cofficients.a == rhs.cofficients.a
+           && this->cofficients.b == rhs.cofficients.b
+           && this->cofficients.c == rhs.cofficients.c;
+}
+
+bool Quadratic::operator!=(const Quadratic &rhs) {
+    return this->cofficients.a != rhs.cofficients.a
+           || this->cofficients.b != rhs.cofficients.b
+           || this->cofficients.c != rhs.cofficients.c;
+}
+
+
+std::ostream &operator<<(std::ostream &outStream, const Quadratic &quad) {
+    outStream << quad.getCoefficient(PowerX::powerOfTwo) << "x^2"
               << ((quad.getCoefficient(powerOfOne) > 0) ? " + " : " ")
               << quad.getCoefficient(PowerX::powerOfOne) << "x"
               << ((quad.getCoefficient(powerOfZero) > 0) ? " + " : " ")
               << quad.getCoefficient(PowerX::powerOfZero);
 
-    return outstream;
+    return outStream;
 }
 
-std::istream &operator>>(std::istream &instream, Quadratic &quad) {
+std::istream &operator>>(std::istream &inStream, Quadratic &quad) {
     int a, b, c;
-    instream >> a >> b >> c;
+    std::cout << "Input coefficient A for power of 2";
+    inStream >> a;
+    std::cout << "Input coefficient B for power of 1";
+    inStream >> b;
+    std::cout << "Input coefficient C for power of 01";
+    inStream >> c;
     quad = Quadratic(Coefficient{a, b, c});
-    return instream;
+    return inStream;
 }
 
 

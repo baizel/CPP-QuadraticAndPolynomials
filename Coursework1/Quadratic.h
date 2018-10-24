@@ -16,6 +16,7 @@ enum PowerX {
 class Quadratic {
 public:
     explicit Quadratic(Coefficient coefficient);
+
     explicit Quadratic();
 
     ~Quadratic();
@@ -28,17 +29,15 @@ public:
 
     Quadratic operator-(Quadratic rhs);
 
-
     Quadratic &operator=(const Quadratic &rhs);
 
-    //TODO: work out right signature
-    Quadratic operator+=(Quadratic rhs);
+    Quadratic operator+=(const Quadratic &rhs);
 
-    Quadratic operator-=(Quadratic rhs);
+    Quadratic operator-=(const Quadratic &rhs);
 
-    bool operator==(Quadratic rhs);
+    bool operator==(const Quadratic &rhs);
 
-    bool operator!=(Quadratic rhs);
+    bool operator!=(const Quadratic &rhs);
 
 
 private:
@@ -48,8 +47,8 @@ private:
     const int PWR_ZERO = 0;
 };
 
-std::ostream &operator<<(std::ostream &outstream, const Quadratic &quad);
+std::ostream &operator<<(std::ostream &outStream, const Quadratic &quad);
 
-std::istream &operator>>(std::istream &instream, Quadratic &quad);
+std::istream &operator>>(std::istream &inStream, Quadratic &quad);
 
 
