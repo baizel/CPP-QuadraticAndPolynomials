@@ -45,22 +45,21 @@ public:
 
     float computeValue(float x) const;
 
-    //********** Operator overloads ********//
+    /********** Operator overloads ********/
 
-    Polynomial *operator+(const Polynomial &rhs);
+    Polynomial operator+(const Polynomial &rhs);
 
-    Polynomial *operator-(const Polynomial &rhs);
+    Polynomial operator-(const Polynomial &rhs);
 
-    Polynomial *operator*(const Polynomial &rhs);
-
+    Polynomial operator*(const Polynomial &rhs);
 
     Polynomial &operator=(const Polynomial &rhs);
 
-    Polynomial *operator+=(const Polynomial &rhs);
+    Polynomial &operator+=(const Polynomial &rhs);
 
-    Polynomial *operator-=(const Polynomial &rhs);
+    Polynomial &operator-=(const Polynomial &rhs);
 
-    Polynomial *operator*=(const Polynomial &rhs);
+    Polynomial &operator*=(const Polynomial &rhs);
 
     bool operator==(const Polynomial &rhs);
 
@@ -68,7 +67,6 @@ public:
 
     friend std::istream &operator>>(std::istream &inStream, Polynomial &polynomial);
 
-    //TODO: Write this
     friend std::ostream &operator<<(std::ostream &outStream, const Polynomial &polynomial);
 
 private:
