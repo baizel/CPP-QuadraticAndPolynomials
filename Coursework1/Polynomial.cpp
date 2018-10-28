@@ -36,7 +36,7 @@ void Polynomial::addTerm(Term term) {
         } else {
             arraySize++;
             auto *temp = new Term[arraySize];
-            std::copy(polynomial, polynomial + (arraySize),
+            std::copy(polynomial, polynomial + arraySize,
                       stdext::checked_array_iterator<Term *>(temp, arraySize));
             delete[]polynomial;
             polynomial = temp;
@@ -66,7 +66,7 @@ int Polynomial::getArraySize() const {
     return arraySize;
 }
 
-Polynomial Polynomial::operator+(const Polynomial &rhs) {
+Polynomial Polynomial::operator+(const Polynomial &rhs) const {
     Polynomial ret = Polynomial(rhs);
     for (int i = 0; i < arraySize; i++) {
         bool added = false;
@@ -84,7 +84,7 @@ Polynomial Polynomial::operator+(const Polynomial &rhs) {
     return ret;
 }
 
-Polynomial Polynomial::operator-(const Polynomial &rhs) {
+Polynomial Polynomial::operator-(const Polynomial &rhs) const {
     Polynomial ret = Polynomial(rhs);
     for (int i = 0; i < arraySize; i++) {
         bool added = false;
@@ -102,7 +102,7 @@ Polynomial Polynomial::operator-(const Polynomial &rhs) {
     return ret;
 }
 
-Polynomial Polynomial::operator*(const Polynomial &rhs) {
+Polynomial Polynomial::operator*(const Polynomial &rhs) const {
     Polynomial ret = Polynomial(rhs);
     for (int i = 0; i < arraySize; i++) {
         for (int j = 0; j < ret.getArraySize(); j++) {
@@ -114,7 +114,7 @@ Polynomial Polynomial::operator*(const Polynomial &rhs) {
     return ret;
 }
 
-Polynomial &Polynomial::operator=(const Polynomial &rhs) {
+Polynomial &Polynomial::operator=(const Polynomial &rhs)  {
     delete[] polynomial;
     polynomial = new Term[rhs.arraySize];
     for (int i = 0; i < rhs.arraySize; i++) {
@@ -123,41 +123,42 @@ Polynomial &Polynomial::operator=(const Polynomial &rhs) {
     return *this;
 }
 
-Polynomial &Polynomial::operator+=(const Polynomial &rhs) {
+Polynomial &Polynomial::operator+=(const Polynomial &rhs)  {
     Polynomial ret = *this + rhs;
     *this = ret;
     return *this;
 }
 
-Polynomial &Polynomial::operator-=(const Polynomial &rhs) {
+Polynomial &Polynomial::operator-=(const Polynomial &rhs)  {
     Polynomial ret = *this - rhs;
     *this = ret;
     return *this;
 }
 
-Polynomial &Polynomial::operator*=(const Polynomial &rhs) {
+Polynomial &Polynomial::operator*=(const Polynomial &rhs)  {
     Polynomial ret = *this * rhs;
     *this = ret;
     return *this;
 }
 
-bool Polynomial::operator==(const Polynomial &rhs) {
+bool Polynomial::operator==(const Polynomial &rhs) const {
     bool ret = false;
     if (arraySize == rhs.arraySize) {
         ret = true;
         for (int i = 0; i < arraySize; i++) {
+            //If one of the expressions return false then ret will always be false.
             ret *= getCoefficient(polynomial[i].powerOfX) == rhs.getCoefficient(polynomial[i].powerOfX);
         }
     }
     return ret;
 }
 
-bool Polynomial::operator!=(const Polynomial &rhs) {
+bool Polynomial::operator!=(const Polynomial &rhs) const {
     return !(*this == rhs);
 }
 
 std::ostream &operator<<(std::ostream &outStream, const Polynomial &polynomial) {
-    for (auto i = 0; i < polynomial.getArraySize(); i++) {
+    for (int i = 0; i < polynomial.getArraySize(); i++) {
         std::cout << polynomial.polynomial[i].coefficent;
         if (polynomial.polynomial[i].powerOfX != 0) {
             std::cout << "x";
@@ -189,7 +190,7 @@ std::istream &operator>>(std::istream &inStream, Polynomial &polynomial) {
         std::cout << "First term Power: ";
         inStream >> power;
 
-        polynomial.addTerm(Term{cof,power});
+        polynomial.addTerm(Term{cof, power});
 
     }
     return inStream;

@@ -2,6 +2,10 @@
 
 #include <ostream>
 
+/**
+ * Struct to represent what a term is.
+ * Each polynomial object has an array of term size
+ */
 struct Term {
     int coefficent;
     int powerOfX;
@@ -15,7 +19,6 @@ class Polynomial {
      */
 
 public:
-    void print();
 
     /**
      * Default constructor
@@ -24,6 +27,7 @@ public:
 
     /**
      * Copy constructor
+     * This will copy the array over to a new array.
      */
     Polynomial(const Polynomial &other);
 
@@ -35,6 +39,7 @@ public:
     /**
      * Method to add a Term to the polynomial.
      * I.e adding 3x^2 to polynomial by doing addTerm(Term(3,2)
+     * Every time this is called a new array is made with size arraySize + 1.
      * @param term
      */
     void addTerm(Term term);
@@ -47,11 +52,11 @@ public:
 
     /********** Operator overloads ********/
 
-    Polynomial operator+(const Polynomial &rhs);
+    Polynomial operator+(const Polynomial &rhs) const;
 
-    Polynomial operator-(const Polynomial &rhs);
+    Polynomial operator-(const Polynomial &rhs) const;
 
-    Polynomial operator*(const Polynomial &rhs);
+    Polynomial operator*(const Polynomial &rhs) const;
 
     Polynomial &operator=(const Polynomial &rhs);
 
@@ -61,9 +66,9 @@ public:
 
     Polynomial &operator*=(const Polynomial &rhs);
 
-    bool operator==(const Polynomial &rhs);
+    bool operator==(const Polynomial &rhs) const;
 
-    bool operator!=(const Polynomial &rhs);
+    bool operator!=(const Polynomial &rhs) const;
 
     friend std::istream &operator>>(std::istream &inStream, Polynomial &polynomial);
 

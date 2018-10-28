@@ -20,8 +20,7 @@ int Quadratic::getCoefficient(PowerX power) const {
         case powerOfZero:
             return cofficients.c;
         default:
-            //Throw an exception here
-            break;
+            return NULL;
     }
 
 }
