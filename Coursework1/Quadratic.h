@@ -23,7 +23,7 @@ public:
 
     int getCoefficient(PowerX power) const;
 
-    float computeValue(float x) const;
+    int computeValue(int x) const;
 
     Quadratic operator+(Quadratic rhs);
 
@@ -41,7 +41,7 @@ public:
 
 
 private:
-    Coefficient cofficients;
+    Coefficient coefficients;
     const int PWR_TWO = 2;
     const int PWR_ONE = 1;
     const int PWR_ZERO = 0;

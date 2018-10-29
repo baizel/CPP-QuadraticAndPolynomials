@@ -2,11 +2,11 @@
 
 
 Quadratic::Quadratic(Coefficient coefficient) {
-    cofficients = coefficient;
+    coefficients = coefficient;
 }
 
 Quadratic::Quadratic() {
-    cofficients = Coefficient{0, 0, 0};
+    coefficients = Coefficient{0, 0, 0};
 }
 
 Quadratic::~Quadratic() = default;
@@ -14,70 +14,70 @@ Quadratic::~Quadratic() = default;
 int Quadratic::getCoefficient(PowerX power) const {
     switch (power) {
         case powerOfTwo:
-            return cofficients.a;
+            return coefficients.a;
         case powerOfOne:
-            return cofficients.b;
+            return coefficients.b;
         case powerOfZero:
-            return cofficients.c;
+            return coefficients.c;
         default:
             return NULL;
     }
 
 }
 
-float Quadratic::computeValue(float x) const {
-    return cofficients.a * (pow(x, PWR_TWO)) + cofficients.b * (pow(x, PWR_ONE)) + cofficients.c;
+int Quadratic::computeValue(int x) const {
+    return coefficients.a * ((int) pow(x, PWR_TWO)) + coefficients.b * ((int) pow(x, PWR_ONE)) + coefficients.c;
 }
 
 Quadratic Quadratic::operator+(Quadratic rhs) {
 
-    int a = cofficients.a + rhs.getCoefficient(PowerX::powerOfTwo);
-    int b = cofficients.b + rhs.getCoefficient(PowerX::powerOfOne);
-    int c = cofficients.c + rhs.getCoefficient(PowerX::powerOfZero);
+    int a = coefficients.a + rhs.getCoefficient(PowerX::powerOfTwo);
+    int b = coefficients.b + rhs.getCoefficient(PowerX::powerOfOne);
+    int c = coefficients.c + rhs.getCoefficient(PowerX::powerOfZero);
 
     return Quadratic(Coefficient{a, b, c});
 }
 
 Quadratic Quadratic::operator-(Quadratic rhs) {
 
-    int a = cofficients.a - rhs.getCoefficient(PowerX::powerOfTwo);
-    int b = cofficients.b - rhs.getCoefficient(PowerX::powerOfOne);
-    int c = cofficients.c - rhs.getCoefficient(PowerX::powerOfZero);
+    int a = coefficients.a - rhs.getCoefficient(PowerX::powerOfTwo);
+    int b = coefficients.b - rhs.getCoefficient(PowerX::powerOfOne);
+    int c = coefficients.c - rhs.getCoefficient(PowerX::powerOfZero);
 
     return Quadratic(Coefficient{a, b, c});
 }
 
 Quadratic &Quadratic::operator=(const Quadratic &rhs) {
-    cofficients.a = rhs.getCoefficient(powerOfTwo);
-    cofficients.b = rhs.getCoefficient(powerOfOne);
-    cofficients.c = rhs.getCoefficient(powerOfZero);
+    coefficients.a = rhs.getCoefficient(powerOfTwo);
+    coefficients.b = rhs.getCoefficient(powerOfOne);
+    coefficients.c = rhs.getCoefficient(powerOfZero);
     return *this;
 }
 
 Quadratic Quadratic::operator+=(const Quadratic &rhs) {
-    this->cofficients.a += rhs.cofficients.a;
-    this->cofficients.b += rhs.cofficients.b;
-    this->cofficients.c += rhs.cofficients.c;
+    this->coefficients.a += rhs.coefficients.a;
+    this->coefficients.b += rhs.coefficients.b;
+    this->coefficients.c += rhs.coefficients.c;
     return *this;
 }
 
 Quadratic Quadratic::operator-=(const Quadratic &rhs) {
-    this->cofficients.a -= rhs.cofficients.a;
-    this->cofficients.b -= rhs.cofficients.b;
-    this->cofficients.c -= rhs.cofficients.c;
+    this->coefficients.a -= rhs.coefficients.a;
+    this->coefficients.b -= rhs.coefficients.b;
+    this->coefficients.c -= rhs.coefficients.c;
     return *this;
 }
 
 bool Quadratic::operator==(const Quadratic &rhs) {
-    return this->cofficients.a == rhs.cofficients.a
-           && this->cofficients.b == rhs.cofficients.b
-           && this->cofficients.c == rhs.cofficients.c;
+    return this->coefficients.a == rhs.coefficients.a
+           && this->coefficients.b == rhs.coefficients.b
+           && this->coefficients.c == rhs.coefficients.c;
 }
 
 bool Quadratic::operator!=(const Quadratic &rhs) {
-    return this->cofficients.a != rhs.cofficients.a
-           || this->cofficients.b != rhs.cofficients.b
-           || this->cofficients.c != rhs.cofficients.c;
+    return this->coefficients.a != rhs.coefficients.a
+           || this->coefficients.b != rhs.coefficients.b
+           || this->coefficients.c != rhs.coefficients.c;
 }
 
 
@@ -93,11 +93,11 @@ std::ostream &operator<<(std::ostream &outStream, const Quadratic &quad) {
 
 std::istream &operator>>(std::istream &inStream, Quadratic &quad) {
     int a, b, c;
-    std::cout << "Input coefficient A for power of 2";
+    std::cout << "Input coefficients A for power of 2";
     inStream >> a;
-    std::cout << "Input coefficient B for power of 1";
+    std::cout << "Input coefficients B for power of 1";
     inStream >> b;
-    std::cout << "Input coefficient C for power of 01";
+    std::cout << "Input coefficients C for power of 01";
     inStream >> c;
     quad = Quadratic(Coefficient{a, b, c});
     return inStream;
