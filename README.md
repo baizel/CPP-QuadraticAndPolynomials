@@ -1,4 +1,4 @@
-# ProgGamesCoursework1
+# Programming for Games Coursework 1
 Project 1 for programming for games requirements 
 
 - Implement a class Quadratic to store co-efficients of an instance of a polynomial of degree 2. Store
