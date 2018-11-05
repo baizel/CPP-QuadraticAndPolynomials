@@ -1,13 +1,9 @@
 #include "Quadratic.h"
 
 
-Quadratic::Quadratic(Coefficient coefficient) {
-    coefficients = coefficient;
-}
+Quadratic::Quadratic(Coefficient coefficient) : coefficients(coefficient) {}
 
-Quadratic::Quadratic() {
-    coefficients = Coefficient{0, 0, 0};
-}
+Quadratic::Quadratic() : coefficients(Coefficient{0, 0, 0}) {}
 
 Quadratic::~Quadratic() = default;
 

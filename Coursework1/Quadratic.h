@@ -15,16 +15,37 @@ enum PowerX {
 
 class Quadratic {
 public:
+    /**
+     * Constructor that takes a coefficient as a parameter. Coefficients an enum which stores 3 ints
+     * @param coefficient
+     */
     explicit Quadratic(Coefficient coefficient);
 
+    /**
+     * Default constructor that initialises everything to 0
+     */
     explicit Quadratic();
 
+    /**
+     * Default destructor.
+     */
     ~Quadratic();
 
+    /**
+     * method to return a coefficient given the power of x.
+     * @param power as an enum
+     * @return an int which is the coefficient a, b or c.
+     */
     int getCoefficient(PowerX power) const;
 
+    /**
+     * Method to calculate value of quadratic given the value of x
+     * @param x as an int
+     * @return the value
+     */
     int computeValue(int x) const;
 
+    /** Overload operators **/
     Quadratic operator+(Quadratic rhs);
 
     Quadratic operator-(Quadratic rhs);

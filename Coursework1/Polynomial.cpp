@@ -2,14 +2,9 @@
 #include <iostream>
 #include <iterator>
 
-Polynomial::Polynomial() {
-    arraySize = 0;
-    polynomial = new Term[1];
-}
+Polynomial::Polynomial() : arraySize(0), polynomial(new Term[1]) {}
 
-Polynomial::Polynomial(const Polynomial &other) {
-    arraySize = other.arraySize;
-    polynomial = new Term[other.arraySize];
+Polynomial::Polynomial(const Polynomial &other) : arraySize(other.arraySize), polynomial(new Term[other.arraySize]) {
     for (int i = 0; i < other.arraySize; i++) {
         polynomial[i] = Term{other.polynomial[i].coefficient, other.polynomial[i].power};
     }
