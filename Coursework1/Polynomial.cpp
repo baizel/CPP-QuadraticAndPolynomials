@@ -17,7 +17,7 @@ Polynomial::~Polynomial() {
 
 void Polynomial::addTerm(Term term) {
     if (term.coefficient != 0) {
-        // Checks if Term already exists
+        // Checks if Term already exists adds coefficient if it does
         if (getCoefficient(term.power) != 0) {
             for (int i = 0; i < arraySize; i++) {
                 if (polynomial[i].power == term.power) {
@@ -80,12 +80,11 @@ Polynomial Polynomial::operator+(const Polynomial &rhs) const {
 }
 
 Polynomial Polynomial::operator-(const Polynomial &rhs) const {
-    //  this + (-1*(rhs))
+    //Multiply by -1 and add self
     Polynomial returnPoly = Polynomial(rhs);
     for (int i = 0; i < returnPoly.arraySize; i++) {
         returnPoly.polynomial[i].coefficient = returnPoly.polynomial[i].coefficient * -1;
     }
-
     return *this + returnPoly;
 }
 
@@ -96,7 +95,6 @@ Polynomial Polynomial::operator*(const Polynomial &rhs) const {
             int cof = polynomial[i].coefficient * rhs.polynomial[j].coefficient;
             int ind = polynomial[i].power + rhs.polynomial[j].power;
             returnPoly.addTerm(Term({cof, ind}));
-
         }
     }
     return returnPoly;
@@ -131,7 +129,9 @@ Polynomial &Polynomial::operator*=(const Polynomial &rhs) {
 }
 
 bool Polynomial::operator==(const Polynomial &rhs) const {
-    int ret = false; //Set default as false
+    // Assumes false will always be 0 and true will always be 1 (C++ standards)
+    // Using an int as boolean so i can do multiplication with 1 and 0
+    int ret = false;
     if (arraySize == rhs.arraySize) {
         ret = true;
         for (int i = 0; i < arraySize && ret; i++) {

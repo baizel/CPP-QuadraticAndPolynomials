@@ -22,7 +22,7 @@ int Quadratic::getCoefficient(PowerX power) const {
 }
 
 int Quadratic::computeValue(int x) const {
-    return coefficients.a * ((int) pow(x, PWR_TWO)) + coefficients.b * ((int) pow(x, PWR_ONE)) + coefficients.c;
+    return coefficients.a * ((int) pow(x, (int)powerOfTwo)) + coefficients.b * ((int) pow(x, (int)powerOfOne)) + coefficients.c;
 }
 
 Quadratic Quadratic::operator+(Quadratic rhs) {
@@ -78,9 +78,9 @@ bool Quadratic::operator!=(const Quadratic &rhs) {
 
 
 std::ostream &operator<<(std::ostream &outStream, const Quadratic &quad) {
-    outStream << quad.getCoefficient(PowerX::powerOfTwo) << "x^2"
+    outStream << quad.getCoefficient(PowerX::powerOfTwo) << Quadratic::variable << "^" << powerOfTwo
               << ((quad.getCoefficient(powerOfOne) > 0) ? " + " : " ")
-              << quad.getCoefficient(PowerX::powerOfOne) << "x"
+              << quad.getCoefficient(PowerX::powerOfOne) << Quadratic::variable
               << ((quad.getCoefficient(powerOfZero) > 0) ? " + " : " ")
               << quad.getCoefficient(PowerX::powerOfZero);
 
@@ -89,11 +89,11 @@ std::ostream &operator<<(std::ostream &outStream, const Quadratic &quad) {
 
 std::istream &operator>>(std::istream &inStream, Quadratic &quad) {
     int a, b, c;
-    std::cout << "Input coefficients A for power of 2";
+    std::cout << "Input coefficients A for power of 2: ";
     inStream >> a;
-    std::cout << "Input coefficients B for power of 1";
+    std::cout << "Input coefficients B for power of 1: ";
     inStream >> b;
-    std::cout << "Input coefficients C for power of 01";
+    std::cout << "Input coefficients C for power of 0: ";
     inStream >> c;
     quad = Quadratic(Coefficient{a, b, c});
     return inStream;

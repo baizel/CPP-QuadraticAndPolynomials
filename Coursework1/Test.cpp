@@ -29,6 +29,18 @@ void initPolynomial() {
     // polynomial = 4x^4 + 5x^3 + x^2 + 2x + 5
 }
 
+void testQudraticCin() {
+    Quadratic q;
+    std::cin >> q;
+    std::cout << q << std::endl;
+}
+
+void testPolynomialCin() {
+    Polynomial p;
+    std::cin >> p;
+    std::cout << p << std::endl;
+}
+
 void testQuadraticGetCoefficient();
 
 void testQuadraticComputeValue();
@@ -105,7 +117,13 @@ int main() {
     testPolynomialCopyConstructor();
     testPolynomialCout();
 
-    //TODO: Test cin
+    testQudraticCin();
+    testPolynomialCin();
+
+	//Multiple getChar to stop terminal existing immediately 
+    std::getchar();
+	std::getchar();
+
 }
 
 void testQuadraticGetCoefficient() {

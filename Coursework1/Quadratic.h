@@ -2,15 +2,23 @@
 
 #include <iostream>
 
+/**
+ * Struct represent Coefficients in a Quadratic
+ */
 struct Coefficient {
     int a;
     int b;
     int c;
 
 };
-
+/**
+ * enums to represent the powers of x in a quadratic equation
+ * Values can be used
+ */
 enum PowerX {
-    powerOfTwo, powerOfOne, powerOfZero
+    powerOfTwo = 2,
+    powerOfOne = 1,
+    powerOfZero = 0
 };
 
 class Quadratic {
@@ -60,16 +68,17 @@ public:
 
     bool operator!=(const Quadratic &rhs);
 
+    friend std::ostream &operator<<(std::ostream &outStream, const Quadratic &quad);
+
+    friend std::istream &operator>>(std::istream &inStream, Quadratic &quad);
 
 private:
     Coefficient coefficients;
-    const int PWR_TWO = 2;
-    const int PWR_ONE = 1;
-    const int PWR_ZERO = 0;
+    const static char variable = 'x';
+
+
 };
 
-std::ostream &operator<<(std::ostream &outStream, const Quadratic &quad);
 
-std::istream &operator>>(std::istream &inStream, Quadratic &quad);
 
 
