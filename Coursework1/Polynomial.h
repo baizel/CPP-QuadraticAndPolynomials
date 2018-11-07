@@ -1,6 +1,6 @@
 #pragma once
-
 #include <ostream>
+
 /**
  * Struct to represent what a term is.
  * Each polynomial object has an array of term size
@@ -17,7 +17,7 @@ class Polynomial {
      * The polynomial is made up of an array of Terms. (A Term is a struct that has a power and a coefficient.)
      * The array is on the heap. Starts with size 1 then expands when addTerm is used.
      *
-     * @author Baizel M
+     * @author Baizel
      */
 
 public:

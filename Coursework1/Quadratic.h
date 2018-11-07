@@ -20,7 +20,11 @@ enum PowerX {
     powerOfOne = 1,
     powerOfZero = 0
 };
-
+/**
+ * Class to represent a quadratic. This class 2 constructors.
+ * internally, the Quadratic is represented by the  struct coefficient. Since this is a Quadratic class,
+ * we know what the powers are so only need to store coefficient.
+ */
 class Quadratic {
 public:
     /**
