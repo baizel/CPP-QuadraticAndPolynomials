@@ -34,7 +34,7 @@ public:
     explicit Quadratic(Coefficient coefficient);
 
     /**
-     * Default constructor that initialises everything to 0
+     * Constructor that initialises everything to 0
      */
     explicit Quadratic();
 
